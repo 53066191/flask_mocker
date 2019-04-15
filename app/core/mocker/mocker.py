@@ -50,7 +50,7 @@ class MockResponse:
 
 class Mocker():
 
-    def __init__(self, mockrequest:MockRequest, mockresponse):
+    def __init__(self, mockrequest:MockRequest, mockresponse:MockResponse):
 
         self.mockrequest = mockrequest
         self.mockresponse = mockresponse

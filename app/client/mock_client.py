@@ -34,6 +34,7 @@ class Mock_Client():
 
 
     def mock_callback(self, mocker):
+        mocker.mockresponse.with_callback()
         self.t = threading.Thread(target=run, args=(self.ip, self.port, mocker, self.call_back))
         self.t.start()
 

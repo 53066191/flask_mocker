@@ -5,14 +5,12 @@
 @desc:
 """
 
-
 import jsonpickle
 
 from flask_socketio import emit, join_room
 
 from app import socketio
 from app.core.mocker import all_mocker
-
 
 #客戶端连接成功后，加入到room中
 @socketio.on("join", namespace='/mock')
