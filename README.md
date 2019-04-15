@@ -3,8 +3,8 @@
 
 
 ###  客户端支持匹配方式：
-   1.regex(): 带上此函数后，将转为正则表达式匹配
-   2.parmas(param("O01-9", "aaa")), body中含有{"O01-9":"aaa"}
+    1.regex(): 带上此函数后，将转为正则表达式匹配
+    2.parmas(param("O01-9", "aaa")), body中含有{"O01-9":"aaa"}
 
 
 ###  普通mock
