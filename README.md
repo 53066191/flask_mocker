@@ -12,18 +12,19 @@
 
 
 ###  普通mock
-   ```python
+```python
     client = Mock_Client("192.168.1.182", 5000)
-    mocker_request = MockRequest().with_path(regex("abc")).with_body(params(param("O01-9", "aaa"))).with_method("post")
+    mocker_request = MockRequest().with_path(regex("abc")).with_body(params(param("O01-9", "aaa")))
     mocker_response = MockResponse().with_body("aaaa")
     mocker = Mocker(mocker_request, mocker_response)
    ```
     
 ###  mock with callback
-   ```python
+
+```python
     def get_resp_by_req(req):
       return req['path']
-
+      
     def create_mocker_callback():
        client = Mock_Client("192.168.1.182", 5000, get_resp_by_req)
        mocker_request = MockRequest().with_path("/abc").with_body(params(param("O01-9", "aaa"))).with_method("post")
@@ -33,7 +34,6 @@
        import time
        time.sleep(10)
        client.disconect()
-     ```
-     
+       
 ###  后续需求
       mock服务器匹配mock失败，则转发至真实服务器
