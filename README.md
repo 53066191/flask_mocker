@@ -28,7 +28,7 @@
     def create_mocker_callback():
        client = Mock_Client("192.168.1.182", 5000, get_resp_by_req)
        mocker_request = MockRequest().with_path("/abc").with_body(params(param("O01", "aaa"))).with_method("post")
-       mocker_response = MockResponse().with_callback()
+       mocker_response = MockResponse()
        mocker = Mocker(mocker_request, mocker_response)
        client.mock_callback(mocker)
        import time
