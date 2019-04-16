@@ -8,6 +8,7 @@ import hashlib
 import time
 
 import jsonpickle
+from flask import make_response
 from flask_socketio import emit
 from app.core.mocker import get_all_mocker, add_mocker
 
@@ -34,7 +35,7 @@ class MockRequest:
 class MockResponse:
 
     def __init__(self):
-        self.actual_req = None
+        self.headers = {}
         self.contain_callback = False
 
     def with_body(self, value):
@@ -45,6 +46,23 @@ class MockResponse:
         self.contain_callback = True
         self.callback = func
         return self
+
+    def with_header(self, key, value):
+        self.headers[key] = value
+        return self
+
+    def with_status(self, status):
+        self.status = status
+        return self
+
+    def make_response(self):
+        resp = make_response(self.body)
+        if hasattr(self, 'status'):
+            resp.status = self.status
+        if self.headers:
+            resp.headers = self.headers
+        return resp
+
 
 
 
@@ -83,7 +101,7 @@ def del_mocker(id):
     del all_mocker[id]
 
 
-def get_resp_from_request(request, mocker):
+def set_resp_body_from_request(request, mocker):
         data = {
                 'path': request.path,
                 'json': request.json,
@@ -96,5 +114,6 @@ def get_resp_from_request(request, mocker):
         while True:
             print("%s 等待結果返回" % (mocker.id))
             if hasattr(mocker.mockresponse, "body"):
-                return mocker.mockresponse.body
+                print("设置mocker.body完成")
+                break
             time.sleep(1)

@@ -31,7 +31,7 @@ def get_resp_by_req(req):
 def create_client_callback():
     client = Mock_Client("192.168.1.182", 5000)
     mocker_request = MockRequest().with_path("/abc").with_body(params(param("O01-9", "aaa"))).with_method("post")
-    mocker_response = MockResponse().with_callback(get_resp_by_req)
+    mocker_response = MockResponse().with_callback(get_resp_by_req).with_header('name', 'liuyun')
     mocker = Mocker(mocker_request, mocker_response)
     client.mock_callback(mocker)
     # import time
@@ -57,6 +57,6 @@ def clean():
 if __name__ == '__main__':
     create_mock2()
     create_client_callback()
-    time.sleep(10)
-    print("清理mock")
-    clean()
+    # time.sleep(10)
+    # print("清理mock")
+    # clean()

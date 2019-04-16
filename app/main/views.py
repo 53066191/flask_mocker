@@ -6,7 +6,7 @@
 """
 
 from flask import request
-from app.core.mocker.mocker import choose_mocker, get_resp_from_request
+from app.core.mocker.mocker import choose_mocker, set_resp_body_from_request
 from app.main import main
 
 
@@ -14,9 +14,9 @@ from app.main import main
 def mock_result(url):
     mocker = choose_mocker(request)
     if mocker and mocker.mockresponse.contain_callback:
-        get_resp_from_request(request, mocker)
+        set_resp_body_from_request(request, mocker)
 
-    return mocker.mockresponse.body if mocker else "xxxxx"
+    return mocker.mockresponse.make_response() if mocker else "xxxx"
 
 @main.route("/", methods=["GET", "POST"])
 def index():
