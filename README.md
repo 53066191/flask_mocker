@@ -17,6 +17,8 @@
     mocker_request = MockRequest().with_path(regex("abc")).with_body(params(param("O01-9", "aaa")))
     mocker_response = MockResponse().with_body("aaaa")
     mocker = Mocker(mocker_request, mocker_response)
+    client.mock(mocker)
+
 ```
 
 ###  mock with callback
