@@ -83,10 +83,8 @@ class Matcher:
             return True
 
     def match(self):
-        if self.match_method() and self.match_path() and self.match_body():
-            return True
-        else:
-            return False
+        return self.match_method() and self.match_path() and self.match_body()
+
 
 
 

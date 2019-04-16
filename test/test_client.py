@@ -4,7 +4,6 @@
 @time: 2019/4/10/010 11:26
 @desc:
 """
-import requests
 
 from app.client.mock_client import Mock_Client
 from app.client.mock_tools import params, param
