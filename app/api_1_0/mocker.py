@@ -13,6 +13,7 @@ from app.core.mocker import all_mocker
 
 @api.route("/mock/create", methods=["POST"])
 def create_mock():
+    print(request.method)
     mocker = jsonpickle.decode(request.data)
     mocker.register()
     result = {"code": 0, "id": mocker.id}

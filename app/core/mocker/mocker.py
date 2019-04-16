@@ -42,8 +42,9 @@ class MockResponse:
         self.body = value
         return self
 
-    def with_callback(self):
+    def with_callback(self, func):
         self.contain_callback = True
+        self.callback = func
         return self
 
 
@@ -67,9 +68,7 @@ class Mocker():
         all_mocker[self.id] = self
 
 
-
-
-def choose_mocker(request, all_mocker):
+def choose_mocker(request):
     from app.core.matchers.matcher import Matcher
 
     for id in all_mocker:
@@ -84,9 +83,9 @@ def del_mocker(id):
     del all_mocker[id]
 
 
-
 def get_resp_from_request(request, mocker):
-        data = {'path': request.path,
+        data = {
+                'path': request.path,
                 'json': request.json,
                 'data': request.data.decode(encoding='utf-8'),
                 'header': request.content_type,

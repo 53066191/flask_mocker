@@ -17,10 +17,9 @@ from socketIO_client import SocketIO, BaseNamespace
 
 class Mock_Client():
 
-    def __init__(self, ip, port, call_back=None):
+    def __init__(self, ip, port):
         self.ip = ip
         self.port = port
-        self.call_back = call_back
         self.t = None
 
     def mock(self, mocker: Mocker):
@@ -34,8 +33,7 @@ class Mock_Client():
 
 
     def mock_callback(self, mocker):
-        mocker.mockresponse.with_callback()
-        self.t = threading.Thread(target=run, args=(self.ip, self.port, mocker, self.call_back))
+        self.t = threading.Thread(target=run, args=(self.ip, self.port, mocker))
         self.t.start()
 
     def delete(self, id):
@@ -70,11 +68,11 @@ class Namespace(BaseNamespace):
         self.call_back = func
 
 
-def run(ip, port, mocker, call_back ):
+def run(ip, port, mocker):
     try:
         socketIO = SocketIO(ip, port, wait_for_connection=False)
         mocknamespace = socketIO.define(Namespace, '/mock')
-        mocknamespace.callback(call_back)
+        mocknamespace.callback(mocker.mockresponse.callback)
         mocknamespace.emit('join', jsonpickle.encode(mocker))
         socketIO.wait()
     except ConnectionError:

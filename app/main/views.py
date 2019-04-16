@@ -14,7 +14,7 @@ from app.main import main
 
 @main.route("/<url>", methods=["GET", "POST"])
 def mock_result(url):
-    mocker = choose_mocker(request, all_mocker)
+    mocker = choose_mocker(request)
     if mocker and mocker.mockresponse.contain_callback:
         get_resp_from_request(request, mocker)
 
