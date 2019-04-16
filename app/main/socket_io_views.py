@@ -6,9 +6,7 @@
 """
 
 import jsonpickle
-
 from flask_socketio import emit, join_room
-
 from app import socketio
 from app.core.mocker import all_mocker
 

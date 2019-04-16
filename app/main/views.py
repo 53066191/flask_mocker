@@ -6,8 +6,6 @@
 """
 
 from flask import request
-
-from app.core.mocker import all_mocker
 from app.core.mocker.mocker import choose_mocker, get_resp_from_request
 from app.main import main
 

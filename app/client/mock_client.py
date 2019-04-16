@@ -7,10 +7,10 @@
 import ctypes
 import inspect
 import threading
-
 import jsonpickle
 import requests
 
+from app.client import all_connection
 from app.core.mocker.mocker import Mocker
 from socketIO_client import SocketIO, BaseNamespace
 
@@ -34,6 +34,7 @@ class Mock_Client():
 
     def mock_callback(self, mocker):
         self.t = threading.Thread(target=run, args=(self.ip, self.port, mocker))
+        all_connection.append(self.t)
         self.t.start()
 
     def delete(self, id):
@@ -49,8 +50,23 @@ class Mock_Client():
         if self.t:
             stop_thread(self.t)
 
+    def restore(self):
+
+        '''清理所有的socketio链接，以及mocker对象'''
+
+        for conn in all_connection:
+            stop_thread(conn)
+        url = "http://%s:%s/mock/clean" % (self.ip, self.port)
+        resp = requests.get(url)
+        if resp.json()['code'] == 0:
+            print("清理完成")
+        else:
+            print("清理失败")
+
+
     def disconect(self):
         stop_thread(self.t)
+
 
 class Namespace(BaseNamespace):
 

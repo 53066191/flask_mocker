@@ -10,7 +10,6 @@ from app.core.mocker.mocker import Mocker
 from app.core.matchers.matchlog import log
 
 
-
 def matched_from_type(actual, expect):
 
     if isinstance(expect, re.Pattern):

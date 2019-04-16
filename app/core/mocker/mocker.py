@@ -9,8 +9,7 @@ import time
 
 import jsonpickle
 from flask_socketio import emit
-
-from app.core.mocker import all_mocker
+from app.core.mocker import get_all_mocker, add_mocker
 
 
 class MockRequest:
@@ -65,12 +64,12 @@ class Mocker():
 
     def register(self):
         self.set_id()
-        all_mocker[self.id] = self
+        add_mocker(self.id, self)
 
 
 def choose_mocker(request):
     from app.core.matchers.matcher import Matcher
-
+    all_mocker = get_all_mocker()
     for id in all_mocker:
         matcher = Matcher(request, all_mocker[id])
         if matcher.match():
@@ -80,6 +79,7 @@ def choose_mocker(request):
 
 
 def del_mocker(id):
+    all_mocker = get_all_mocker()
     del all_mocker[id]
 
 
