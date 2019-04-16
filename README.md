@@ -22,6 +22,15 @@
 ###  mock with callback
 
 ```python
+    '''
+      req结构：{
+                'path': request.path,
+                'json': request.json,
+                'data': request.data.decode(encoding='utf-8'),
+                'header': request.content_type,
+                'id': mocker.id
+                }
+    '''
     def get_resp_by_req(req):
       return req['path']
 
