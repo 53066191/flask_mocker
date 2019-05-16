@@ -16,11 +16,10 @@ from app.main import main
 def proxy():
     g.proxy = route.Proxy(request.path, request.host)
     g.url = "http://" + g.proxy.default + request.path
-    print("default:" + g.url)
 
     if g.proxy.to_ip_port:
         url = "http://" + g.proxy.to_ip_port + request.path
-        return g.proxy.redirect(request, url)
+        return g.proxy.redirect(url, request)
 
 
 @main.route("/<regex('.*'):uri>", methods=["GET", "POST"])
