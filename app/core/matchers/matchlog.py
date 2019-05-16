@@ -5,7 +5,7 @@
 @desc:
 """
 
-from app.logger import Logger
+from app.tools.logger import Logger
 
 logger = Logger().getLogger(__name__)
 

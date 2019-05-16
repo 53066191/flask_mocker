@@ -72,7 +72,6 @@ class Mocker():
 
         self.mockrequest = mockrequest
         self.mockresponse = mockresponse
-        self.receive_request = None
 
     def set_id(self):
         m = hashlib.md5()

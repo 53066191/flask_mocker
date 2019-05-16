@@ -4,12 +4,11 @@
 @time: 2019/4/10/010 11:26
 @desc:
 """
-import time
 
 from app.client.mock_client import Mock_Client
 from app.client.mock_tools import params, param
 from app.core.mocker.mocker import MockRequest, Mocker, MockResponse
-from app.logger import Logger
+from app.tools.logger import Logger
 
 logger = Logger().getLogger(__name__)
 
@@ -18,7 +17,7 @@ logger = Logger().getLogger(__name__)
 def create_mocker():
 
     client = Mock_Client("192.168.1.182", 5000)
-    mocker_request = MockRequest().with_path("/abc").with_body(params(param("O01-9", "aaa"))).with_method("post")
+    mocker_request = MockRequest().with_path("/abc")
     mocker_response = MockResponse().with_body("aaaa")
     mocker = Mocker(mocker_request, mocker_response)
     id = client.mock(mocker)
@@ -55,8 +54,8 @@ def clean():
     client.restore()
 
 if __name__ == '__main__':
-    create_mock2()
+    create_mocker()
     create_client_callback()
     # time.sleep(10)
     # print("清理mock")
-    # clean()
+    clean()

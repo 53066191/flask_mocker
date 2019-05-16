@@ -8,7 +8,8 @@
 import jsonpickle
 from flask_socketio import emit, join_room
 from app import socketio
-from app.core.mocker import all_mocker
+from app.core.mocker import get_all_mocker
+
 
 #客戶端连接成功后，加入到room中
 @socketio.on("join", namespace='/mock')
@@ -22,5 +23,5 @@ def create_mock_callback(message):
 #接收客户端生成的返回
 @socketio.on("client_result", namespace='/mock')
 def receive_client_result(msg):
+    all_mocker = get_all_mocker()
     all_mocker[msg['id']].mockresponse.body = msg['body']
-

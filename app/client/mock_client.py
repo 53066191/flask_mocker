@@ -24,6 +24,7 @@ class Mock_Client():
 
     def mock(self, mocker: Mocker):
         url = "http://%s:%s/mock/create" % (self.ip, self.port)
+        print(url)
         headers = {"content-type": "application/json"}
         resp = requests.post(url, headers=headers, data=jsonpickle.encode(mocker))
         if resp.json()['code'] == 0:
@@ -56,6 +57,7 @@ class Mock_Client():
 
         for conn in all_connection:
             stop_thread(conn)
+
         url = "http://%s:%s/mock/clean" % (self.ip, self.port)
         resp = requests.get(url)
         if resp.json()['code'] == 0:
